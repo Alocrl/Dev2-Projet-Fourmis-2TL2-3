@@ -3,7 +3,7 @@ import sys
 
 def blink_text(text, delay=0.5, num_blinks=5):
     for _ in range(num_blinks):
-        sys.stdout.write(f"{text}  \r")
+        sys.stdout.write(f"{text}\r")
         sys.stdout.flush()
         time.sleep(delay)
 
