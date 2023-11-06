@@ -1,35 +1,32 @@
 import random
 
-class fourmis :
-    
-    def __init__(self,type, sexe, vie) :
+class Ant :
+    """class for an ant"""
+    def __init__(self,type, sexe, life) :
         self.type = type
         self.sexe = sexe
-        self.vie = vie
-    
-    def object_return(self) :
-        object = {"type" : self.type , "sexe" : self.sexe , "vie" : self.vie}
-        return object
+        self.life = life
+
+    @property
+    def everyDayLife (self):
+        self.life -= 1
 
     def __str__(self) :
-        return f"type : {self.type} - sexe : {self.sexe} - vie : {self.vie}"
+        return f"type : {self.type} - sexe : {self.sexe} - vie : {self.life}"
 
 
-def generation_fourmis(nombre_fourmis):
+def generateAnts(nombre_fourmis):
+    """"return a dictionary containing the objects created with the Ants class"""
 
-    ant_type = ["Atta","Camponotus","Formica","Formica","Solenopsis"]
-    ant_sexe = ["M", "F"]
-    ant_vie = range(23)
+    objectAllAnts = {}
+    antType = random.choice(["Atta", "Camponotus", "Formica", "Formica", "Solenopsis"])
+    antSexe = ["M", "F"]
+    antLife = range(23)
 
-    fourmis_object = {}
-    
-    for index in range(nombre_fourmis) :
-        choix_type = random.choice(ant_type)
-        choix_sexe = random.choice(ant_sexe)
-        choix_vie = random.choice(ant_vie)
+    for i in range(nombre_fourmis) :
+        sexe = random.choice(antSexe)
+        nbrLife = random.choice(antLife)
 
-        generation_fourmis = fourmis(choix_type,choix_sexe, choix_vie)
-        fourmis_object[index] = generation_fourmis.object_return()
+        objectAllAnts[i] = Ant(antType, sexe, nbrLife)
 
-    return fourmis_object
-
+    return objectAllAnts

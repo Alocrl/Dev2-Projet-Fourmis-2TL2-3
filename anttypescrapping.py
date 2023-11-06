@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
+##ne sert à rien pour le moment
+
 url = "https://fr.wikipedia.org/wiki/Liste_des_genres_de_fourmis"
 
 response = requests.get(url)
