@@ -4,7 +4,6 @@ import argparse
 from libs.fourmis_generator import generateAnts
 from libs.nouriture_generator import generateFood
 
-#test
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -14,11 +13,11 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 
-    def showState (day, nbrFoodToDelete, nbrFood, deathAnts, nbrAnts, TimeWaitPerDay = 0.5):
+    def showState (day, nbrFoodEaten, nbrFood, nbrDeathAnts, nbrAnts, TimeWaitPerDay = 0.5):
         """ show the state of the simulation """
         print(f"Jour n°: {day}")
-        print(f"il y a {nbrFoodToDelete} nouriture mangée, il vous reste {nbrFood} de nouriture")
-        print(f"il y a {deathAnts} fourmis morte, il reste {nbrAnts} fourmis")
+        print(f"il y a {nbrFoodEaten} nouriture mangée, il vous reste {nbrFood} de nouriture")
+        print(f"il y a {nbrDeathAnts} fourmis morte, il reste {nbrAnts} fourmis")
         time.sleep(TimeWaitPerDay)
 
 
@@ -35,12 +34,12 @@ if __name__ == '__main__':
 
             #delete one live to ant and add random death
             for i in objectAllAnts.copy():
-                objectAllAnts[i].everyDayLife
+                if objectAllAnts[i].everyDayLife :
+                    del objectAllAnts[i]
                 if random.randrange(randomDeathRate) == 1 :
                     del objectAllAnts[i]
 
             #every ant have to eat or die
-            FoodToDelete = int(len(objectAllAnts))
             for i in objectAllAnts.copy() :
                 if len(objectAllFood) >= 1 :
                     del objectAllFood[random.choice(list(objectAllFood.keys()))]
@@ -48,7 +47,7 @@ if __name__ == '__main__':
                     del objectAllAnts[random.choice(list(objectAllAnts.keys()))]
 
 
-            showState(day, FoodToDelete, nbrFood - len(objectAllFood), nbrAnts - len(objectAllAnts), len(objectAllAnts))
+            showState(day, nbrFood - len(objectAllFood), len(objectAllFood), nbrAnts - len(objectAllAnts), len(objectAllAnts))
 
             nbrAnts = len(objectAllAnts)
             nbrFood = len(objectAllFood)

@@ -9,7 +9,12 @@ class Ant :
 
     @property
     def everyDayLife (self):
+        """ delete a day in the life of the ant and return true if she have less than 1 live"""
         self.life -= 1
+        if self.life <= 0 :
+            return True
+        else:
+            return False
 
     def __str__(self) :
         return f"type : {self.type} - sexe : {self.sexe} - vie : {self.life}"
