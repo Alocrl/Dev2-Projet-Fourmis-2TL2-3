@@ -15,6 +15,7 @@ if __name__ == '__main__':
 
     def showState (day, nbrFoodEaten, nbrFood, nbrDeathAnts, nbrAnts, TimeWaitPerDay = 0.5):
         """ show the state of the simulation """
+        
         print(f"Jour n°: {day}")
         print(f"il y a {nbrFoodEaten} nouriture mangée, il vous reste {nbrFood} de nouriture")
         print(f"il y a {nbrDeathAnts} fourmis morte, il reste {nbrAnts} fourmis")
