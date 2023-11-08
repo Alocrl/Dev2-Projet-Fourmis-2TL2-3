@@ -28,7 +28,7 @@ if __name__ == '__main__':
         nbrFood = len(objectAllFood)
 
 
-        print(f"vous avez : {nbrAnts} fourmis et {len(objectAllFood)} de nouriture ")
+        print(f"vous avez {nbrAnts} fourmis et {nbrFood} de nouriture pour {nbrDays} jours ")
 
         for day in range(1, nbrDays) :
 
@@ -62,4 +62,5 @@ if __name__ == '__main__':
     objectAllFood = generateFood(int(args.food))
 
 
-    launchSimulation(objectAllAnts, objectAllFood, int(args.days))
+    launchSimulation(objectAllAnts, objectAllFood, (int(args.days)+1))
+    
