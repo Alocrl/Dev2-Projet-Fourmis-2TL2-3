@@ -63,4 +63,4 @@ if __name__ == '__main__':
     objectAllFood = generateFood(int(args.food))
 
 
-    launchSimulation(objectAllAnts, objectAllFood, int(args.days))
+    launchSimulation(objectAllAnts, objectAllFood, (int(args.days)+1))
