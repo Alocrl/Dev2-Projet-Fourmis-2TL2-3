@@ -7,6 +7,7 @@ from libs.nouriture_generator import *
 
 #the program have to be launch from an command prompt
 #example of prompt : "python main.py -AW 100 -AS 10 -F 1000 -D 110 -S 0.5  DarkAnt DarkAnt DarkAnt RedAnt"
+"""bojout"""
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
