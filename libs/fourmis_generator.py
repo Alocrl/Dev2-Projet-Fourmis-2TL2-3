@@ -1,18 +1,9 @@
-import random
 
-class Anthill:
-    """Class for an anthill"""
-
-    def __init__(self, type):
-        self.type = type
-
-class Ant(Anthill):
-    """Class for an ant"""
-
-    def __init__(self, type, sexe, life):
-        super().__init__(type)
-        self.sexe = sexe
+class Ant:
+    """Main class for the ants"""
+    def __init__(self, life, type):
         self.life = life
+        self.type = type
 
     @property
     def everyDayLife(self):
@@ -20,21 +11,61 @@ class Ant(Anthill):
         self.life -= 1
         return self.life <= 0
 
+class AntWorker (Ant):
+    """Class for a worker ant"""
+
+    def __init__(self, life, type, nbrFoodCollectPerDay):
+        super().__init__(life, type)
+        self.nbrFoodCollectPerDay = nbrFoodCollectPerDay
+
     def __str__(self):
-        return f"type: {self.type} - sexe: {self.sexe} - vie: {self.life}"
+        return f"The worker ant have {self.life} lives left, she product {self.nbrFoodCollectPerDay} food per day."
 
-def generateAnts(nombre_fourmis):
-    """"return a dictionary containing the objects created with the Ants class"""
+class AntQween (Ant):
+    """Class for a qween ant"""
+    def __init__(self, life, type, nbrEgsPerDay):
+        super().__init__(life, type)
+        self.nbrEgsPerDay = nbrEgsPerDay
+    def __str__(self):
+        return f"The qween ant have {self.life} lives left, she product {self.nbrEgsPerDay} eggs per day."
 
-    objectAllAnts = {}
-    antType = random.choice(["Atta", "Camponotus", "Formica", "Formica", "Solenopsis"])
-    antSexe = ["M", "F"]
-    antLife = range(23)
+class AntSolder (Ant):
+    """Class for a solder ant"""
+    def __init__(self, life, type, damage):
+        super().__init__(life, type)
+        self.damage = damage
 
-    for i in range(nombre_fourmis) :
-        sexe = random.choice(antSexe)
-        nbrLife = random.choice(antLife)
+    def __str__(self):
+        return f"The solder ant have {self.life} lives left, she can attack with {self.damage} domages per hit."
 
-        objectAllAnts[i] = Ant(antType, sexe, nbrLife)
 
-    return objectAllAnts
+
+
+def generateColloniewWorkers(nbrworkers, life, type, nbrFoodCollectPerDay):
+    """Generate and return some ant workers"""
+    workers = {}
+    for i in range(nbrworkers):
+        workers[i] = AntWorker(life, type, nbrFoodCollectPerDay)
+    return workers
+
+def generateColloniewQween(life, type, nbrEgsPerDay):
+    """Generate and return a ant qween"""
+    qween = {}
+    qween[0] = AntQween(life, type, nbrEgsPerDay)
+    return qween
+
+def generateColloniewsoldiers(nbrworkers, life, type, damage):
+    """Generate and return some ant soldiers"""
+    soldiers = {}
+    for i in range(nbrworkers):
+        soldiers[i] = AntSolder(life, type, damage)
+    return soldiers
+
+def generateCollonie(typeAntProprety, type, nbrworkers, nbrsoldiers, food):
+    """Generate and return a collonie of ants base on the type of ants"""
+
+    workers = generateColloniewWorkers(nbrworkers, typeAntProprety["worker"]["life"], type, typeAntProprety["worker"]["nbrFoodCollectPerDay"])
+    qween = generateColloniewQween(typeAntProprety["qween"]["life"], type, typeAntProprety["qween"]["nbrEgsPerDay"])
+    soldiers = generateColloniewsoldiers(nbrsoldiers, typeAntProprety["soldier"]["life"], type, typeAntProprety["soldier"]["damage"])
+
+    return {"antProprety": typeAntProprety, "type" : type, "workers" : workers, "qween" : qween, "soldiers" : soldiers, "food" : food}
