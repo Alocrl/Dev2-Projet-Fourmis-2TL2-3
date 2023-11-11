@@ -2,12 +2,12 @@ import time
 import argparse
 import subprocess
 import platform
+import json
 from libs.fourmis_generator import *
 from libs.nouriture_generator import *
 
 #the program have to be launch from an command prompt
 #example of prompt : "python main.py -AW 100 -AS 10 -F 1000 -D 110 -S 0.5  DarkAnt DarkAnt DarkAnt RedAnt"
-"""bojout"""
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -93,43 +93,13 @@ if __name__ == '__main__':
         #show the state of the porgram
         showState(anthill["type"], len(anthill["workers"]), len(anthill["soldiers"]), anthill["food"])
 
-
-
-
-
+    try :
+        with open("Dev2-Projet-Fourmis-2TL2-3/data/typeAntProprety.json") as file :
+            typeAntProprety = json.load(file)
+    except IOError as e :
+        print(f"IOERROR : {e}")
 
     #differents types of Ants
-    typeAntProprety = {
-        "DarkAnt": {
-            "worker": {
-                "life": 10,
-                "nbrFoodCollectPerDay": 2
-            },
-            "qween": {
-                "life": 300,
-                "nbrEgsPerDay": 3
-            },
-            "soldier": {
-                "life": 50,
-                "damage": 2
-            }
-        },
-        "RedAnt": {
-            "worker": {
-                "life": 100,
-                "nbrFoodCollectPerDay": 1
-            },
-            "qween": {
-                "life": 300,
-                "nbrEgsPerDay": 5
-            },
-            "soldier": {
-                "life": 502,
-                "damage": 2
-            }
-        }
-    }
-
 
     #creatre all collonies
     collonies = {}

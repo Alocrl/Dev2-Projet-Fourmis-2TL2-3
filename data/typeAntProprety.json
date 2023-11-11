@@ -1,0 +1,30 @@
+{
+    "DarkAnt": {
+        "worker": {
+            "life": 10,
+            "nbrFoodCollectPerDay": 2
+        },
+        "qween": {
+            "life": 300,
+            "nbrEgsPerDay": 3
+        },
+        "soldier": {
+            "life": 50,
+            "damage": 2
+        }
+    },
+    "RedAnt": {
+        "worker": {
+            "life": 100,
+            "nbrFoodCollectPerDay": 1
+        },
+        "qween": {
+            "life": 300,
+            "nbrEgsPerDay": 5
+        },
+        "soldier": {
+            "life": 502,
+            "damage": 2
+        }
+    }
+}
