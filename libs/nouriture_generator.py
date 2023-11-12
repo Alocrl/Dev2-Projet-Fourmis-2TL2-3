@@ -1,17 +1,19 @@
 import random
-class Food :
-    def __init__(self, type) :
-        self.type = type
 
-def generateFood(nbre_nouriture) :
+
+class Food:
+    def __init__(self, species):
+        self.species = species
+
+
+def generate_food(nbre_nouriture):
     """"return a dictionary containing the objects created with the Food class """
 
-    objectAllFood = {}
-    foodType = ["fraise", "bannane", "pomme", "noisette", "graine"]
+    object_all_food = {}
+    food_type = ["fraise", "bannane", "pomme", "noisette", "graine"]
 
+    for index in range(nbre_nouriture):
+        food = random.choice(food_type)
+        object_all_food[index] = Food(food)
 
-    for index in range(nbre_nouriture) :
-        food = random.choice(foodType)
-        objectAllFood[index] = Food(food)
-    
-    return objectAllFood
+    return object_all_food
