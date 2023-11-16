@@ -1,71 +1,81 @@
-
 class Ant:
     """Main class for the ants"""
-    def __init__(self, life, type):
+
+    def __init__(self, life, species):
         self.life = life
-        self.type = type
+        self.species = species
 
     @property
-    def everyDayLife(self):
+    def every_day_life(self):
         """Delete a day in the life of the ant and return True if she has less than 1 life"""
         self.life -= 1
         return self.life <= 0
 
-class AntWorker (Ant):
+
+class AntWorker(Ant):
     """Class for a worker ant"""
 
-    def __init__(self, life, type, nbrFoodCollectPerDay):
-        super().__init__(life, type)
-        self.nbrFoodCollectPerDay = nbrFoodCollectPerDay
+    def __init__(self, life, species, nbr_food_collect_per_day):
+        super().__init__(life, species)
+        self.nbr_food_collect_per_day = nbr_food_collect_per_day
 
     def __str__(self):
-        return f"The worker ant have {self.life} lives left, she product {self.nbrFoodCollectPerDay} food per day."
+        return f"The worker ant have {self.life} lives left, she product {self.nbr_food_collect_per_day} food per day."
 
-class AntQween (Ant):
-    """Class for a qween ant"""
-    def __init__(self, life, type, nbrEgsPerDay):
-        super().__init__(life, type)
-        self.nbrEgsPerDay = nbrEgsPerDay
+
+class AntQueen(Ant):
+    """Class for a queen ant"""
+
+    def __init__(self, life, species, nbr_eggs_per_day):
+        super().__init__(life, species)
+        self.nbr_eggs_per_day = nbr_eggs_per_day
+
     def __str__(self):
-        return f"The qween ant have {self.life} lives left, she product {self.nbrEgsPerDay} eggs per day."
+        return f"The queen ant have {self.life} lives left, she product {self.nbr_eggs_per_day} eggs per day."
 
-class AntSolder (Ant):
+
+class AntSolder(Ant):
     """Class for a solder ant"""
-    def __init__(self, life, type, damage):
-        super().__init__(life, type)
+
+    def __init__(self, life, species, damage):
+        super().__init__(life, species)
         self.damage = damage
 
     def __str__(self):
         return f"The solder ant have {self.life} lives left, she can attack with {self.damage} domages per hit."
 
 
-
-
-def generateColloniewWorkers(nbrworkers, life, type, nbrFoodCollectPerDay):
+def generate_colony_workers(nbrworkers, life, species, nbr_food_collect_per_day):
     """Generate and return some ant workers"""
     workers = {}
     for i in range(nbrworkers):
-        workers[i] = AntWorker(life, type, nbrFoodCollectPerDay)
+        workers[i] = AntWorker(life, species, nbr_food_collect_per_day)
     return workers
 
-def generateColloniewQween(life, type, nbrEgsPerDay):
-    """Generate and return a ant qween"""
-    qween = {}
-    qween[0] = AntQween(life, type, nbrEgsPerDay)
-    return qween
 
-def generateColloniewsoldiers(nbrworkers, life, type, damage):
+def generate_colony_queen(life, species, nbr_eggs_per_day):
+    """Generate and return a ant queen"""
+    queen = {0: AntQueen(life, species, nbr_eggs_per_day)}
+    return queen
+
+
+def generate_colony_soldiers(nbrworkers, life, species, damage):
     """Generate and return some ant soldiers"""
     soldiers = {}
     for i in range(nbrworkers):
-        soldiers[i] = AntSolder(life, type, damage)
+        soldiers[i] = AntSolder(life, species, damage)
     return soldiers
 
-def generateCollonie(typeAntProprety, type, nbrworkers, nbrsoldiers, food):
+
+def generate_colony(type_ant_proprety, species, nbrworkers, nbrsoldiers, food):
     """Generate and return a collonie of ants base on the type of ants"""
 
-    workers = generateColloniewWorkers(nbrworkers, typeAntProprety["worker"]["life"], type, typeAntProprety["worker"]["nbrFoodCollectPerDay"])
-    qween = generateColloniewQween(typeAntProprety["qween"]["life"], type, typeAntProprety["qween"]["nbrEgsPerDay"])
-    soldiers = generateColloniewsoldiers(nbrsoldiers, typeAntProprety["soldier"]["life"], type, typeAntProprety["soldier"]["damage"])
+    workers = generate_colony_workers(nbrworkers, type_ant_proprety["worker"]["life"], species,
+                                      type_ant_proprety["worker"]["nbr_food_collect_per_day"])
+    queen = generate_colony_queen(type_ant_proprety["queen"]["life"], species,
+                                  type_ant_proprety["queen"]["nbr_eggs_per_day"])
+    soldiers = generate_colony_soldiers(nbrsoldiers, type_ant_proprety["soldier"]["life"], species,
+                                        type_ant_proprety["soldier"]["damage"])
 
-    return {"antProprety": typeAntProprety, "type" : type, "workers" : workers, "qween" : qween, "soldiers" : soldiers, "food" : food}
+    return {"antProprety": type_ant_proprety, "type": species, "workers": workers, "queen": queen, "soldiers": soldiers,
+            "food": food}
