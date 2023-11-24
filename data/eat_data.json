@@ -1,0 +1,26 @@
+{
+    "banane": {
+        "nbr_life_eat" : 2
+    },
+    "fraise": {
+        "nbr_life_eat" : 4
+    },
+    "graine": {
+        "nbr_life_eat" : 1
+    },
+    "salade": {
+        "nbr_life_eat" : 1
+    },
+    "tomate": {
+        "nbr_life_eat" : 4
+    },
+    "carotte": {
+        "nbr_life_eat" : 6
+    },
+    "citrouille": {
+        "nbr_life_eat" : 10
+    },
+    "feuille": {
+        "nbr_life_eat" : 1
+    }
+}

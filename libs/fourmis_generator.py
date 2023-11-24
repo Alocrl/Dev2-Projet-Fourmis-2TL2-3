@@ -1,3 +1,5 @@
+from libs.nouriture_generator import generate_food
+
 class Ant:
     """Main class for the ants"""
 
@@ -23,15 +25,15 @@ class AntWorker(Ant):
         return f"The worker ant have {self.life} lives left, she product {self.nbr_food_collect_per_day} food per day."
 
 
-class AntQueen(Ant):
-    """Class for a queen ant"""
+class Antqween(Ant):
+    """Class for a qween ant"""
 
     def __init__(self, life, species, nbr_eggs_per_day):
         super().__init__(life, species)
         self.nbr_eggs_per_day = nbr_eggs_per_day
 
     def __str__(self):
-        return f"The queen ant have {self.life} lives left, she product {self.nbr_eggs_per_day} eggs per day."
+        return f"The qween ant have {self.life} lives left, she product {self.nbr_eggs_per_day} eggs per day."
 
 
 class AntSolder(Ant):
@@ -53,10 +55,10 @@ def generate_colony_workers(nbrworkers, life, species, nbr_food_collect_per_day)
     return workers
 
 
-def generate_colony_queen(life, species, nbr_eggs_per_day):
-    """Generate and return a ant queen"""
-    queen = {0: AntQueen(life, species, nbr_eggs_per_day)}
-    return queen
+def generate_colony_qween(life, species, nbr_eggs_per_day):
+    """Generate and return a ant qween"""
+    qween = {0: Antqween(life, species, nbr_eggs_per_day)}
+    return qween
 
 
 def generate_colony_soldiers(nbrworkers, life, species, damage):
@@ -67,15 +69,17 @@ def generate_colony_soldiers(nbrworkers, life, species, damage):
     return soldiers
 
 
-def generate_colony(type_ant_proprety, species, nbrworkers, nbrsoldiers, food):
+def generate_colony(type_ant_proprety, species, nbrworkers, nbrsoldiers, nbrfood):
     """Generate and return a collonie of ants base on the type of ants"""
 
     workers = generate_colony_workers(nbrworkers, type_ant_proprety["worker"]["life"], species,
                                       type_ant_proprety["worker"]["nbr_food_collect_per_day"])
-    queen = generate_colony_queen(type_ant_proprety["queen"]["life"], species,
-                                  type_ant_proprety["queen"]["nbr_eggs_per_day"])
+    qween = generate_colony_qween(type_ant_proprety["qween"]["life"], species,
+                                  type_ant_proprety["qween"]["nbr_eggs_per_day"])
     soldiers = generate_colony_soldiers(nbrsoldiers, type_ant_proprety["soldier"]["life"], species,
                                         type_ant_proprety["soldier"]["damage"])
 
-    return {"antProprety": type_ant_proprety, "type": species, "workers": workers, "queen": queen, "soldiers": soldiers,
-            "food": food}
+    nourishment = generate_food(nbrfood)
+
+    return {"antProprety": type_ant_proprety, "type": species, "workers": workers, "qween": qween, "soldiers": soldiers,
+            "food": nourishment}

@@ -2,11 +2,11 @@
     "DarkAnt": {
         "worker": {
             "life": 10,
-            "nbrFoodCollectPerDay": 2
+            "nbr_food_collect_per_day": 2
         },
         "qween": {
             "life": 300,
-            "nbrEgsPerDay": 3
+            "nbr_eggs_per_day": 3
         },
         "soldier": {
             "life": 50,
@@ -16,11 +16,11 @@
     "RedAnt": {
         "worker": {
             "life": 100,
-            "nbrFoodCollectPerDay": 1
+            "nbr_food_collect_per_day": 1
         },
         "qween": {
             "life": 300,
-            "nbrEgsPerDay": 5
+            "nbr_eggs_per_day": 5
         },
         "soldier": {
             "life": 502,

@@ -5,6 +5,7 @@ import platform
 import json
 from libs.fourmis_generator import *
 from libs.nouriture_generator import *
+from libs.nouriture_generator import *
 
 #the program have to be launch from an command prompt
 #example of prompt : "python main.py -AW 100 -AS 10 -F 1000 -D 110 -S 0.5  DarkAnt DarkAnt DarkAnt RedAnt"
@@ -38,76 +39,83 @@ if __name__ == '__main__':
 
         #delete one live to the ant and add a possible random death (workers)
         for i in list(anthill["workers"].keys()):
-            if anthill["workers"][i].everyDayLife:
+            if anthill["workers"][i].every_day_life:
                 del anthill["workers"][i]
             if random.randrange(randomDeathRate) == 1:
                 if i in anthill["workers"]:
                     del anthill["workers"][i]
         # delete one live to the ant and add a possible random death (soldiers)
         for i in list(anthill["soldiers"].keys()):
-            if anthill["soldiers"][i].everyDayLife:
+            if anthill["soldiers"][i].every_day_life:
                 del anthill["soldiers"][i]
             if random.randrange(randomDeathRate) == 1:
                 if i in anthill["soldiers"]:
                     del anthill["soldiers"][i]
         # delete one live to the ant (qween)
         for i in list(anthill["qween"].keys()):
-            if anthill["qween"][i].everyDayLife :
+            if anthill["qween"][i].every_day_life :
                 del anthill["qween"][i]
 
 
+        """
+        test food to eat, mange un nombre random de noruiture par jours
+        
+        """
+
         #every ant have to eat or die
         for i in anthill["workers"].copy() :
-            if anthill["food"] >= 1 :
-                anthill["food"] -= 1
+            if anthill["food"].check_class() :
+                anthill["food"].del_food()
             else :
                 del anthill["workers"][i]
         for i in anthill["soldiers"].copy() :
-            if anthill["food"] >= 1 :
-                anthill["food"] -= 1
+            if anthill["food"].check_class() :
+                anthill["food"].del_food()
             else :
                 del anthill["soldiers"][i]
 
 
         #generate the new ants from the qween
-        if anthill["food"] >= 3 :
+        if anthill["food"].all_storage_food() >= 3 :
 
             #make workers in function of nbr of eggs the qween can make
             nbrWorkers = len(anthill["workers"])
-            newAntsWorkers = generateColloniewWorkers(anthill["antProprety"]["qween"]["nbrEgsPerDay"], anthill["antProprety"]["worker"]["life"], anthill["type"], anthill["antProprety"]["worker"]["nbrFoodCollectPerDay"])
-            for i in range(anthill["antProprety"]["qween"]["nbrEgsPerDay"]):
+            newAntsWorkers = generate_colony_workers(anthill["antProprety"]["qween"]["nbr_eggs_per_day"], anthill["antProprety"]["worker"]["life"], anthill["type"], anthill["antProprety"]["worker"]["nbr_food_collect_per_day"])
+            for i in range(anthill["antProprety"]["qween"]["nbr_eggs_per_day"]):
                 anthill["workers"][nbrWorkers] = newAntsWorkers[i]
                 nbrWorkers += 1
 
             #make soldiers in function of nbr of eggs the qween can make
             nbrsoldiers = len(anthill["soldiers"])
-            newAntssoldiers = generateColloniewsoldiers(anthill["antProprety"]["qween"]["nbrEgsPerDay"], anthill["antProprety"]["soldier"]["life"], anthill["type"], anthill["antProprety"]["soldier"]["damage"])
-            for i in range(anthill["antProprety"]["qween"]["nbrEgsPerDay"]):
+            newAntssoldiers = generate_colony_soldiers(anthill["antProprety"]["qween"]["nbr_eggs_per_day"], anthill["antProprety"]["soldier"]["life"], anthill["type"], anthill["antProprety"]["soldier"]["damage"])
+            for i in range(anthill["antProprety"]["qween"]["nbr_eggs_per_day"]):
                 anthill["soldiers"][nbrsoldiers] = newAntssoldiers[i]
                 nbrsoldiers += 1
 
 
         #add food in fuction of the nbr of worker and the food he can collect per day
-        anthill["food"] += len(anthill["workers"])*anthill["antProprety"]["worker"]["nbrFoodCollectPerDay"]
-
+        #anthill["food"] += len(anthill["workers"])*anthill["antProprety"]["worker"]["nbr_food_collect_per_day"]
+        nbr_to_add = len(anthill["workers"])*anthill["antProprety"]["worker"]["nbr_food_collect_per_day"]
+        anthill["food"].add_food(nbr_to_add)
         #show the state of the porgram
-        showState(anthill["type"], len(anthill["workers"]), len(anthill["soldiers"]), anthill["food"])
+        showState(anthill["type"], len(anthill["workers"]), len(anthill["soldiers"]), anthill["food"].all_storage_food())
+
+    #differents types of Ants
 
     try :
-        with open("Dev2-Projet-Fourmis-2TL2-3/data/typeAntProprety.json") as file :
+        with open("data/typeAntProprety.json") as file :
             typeAntProprety = json.load(file)
     except IOError as e :
         print(f"IOERROR : {e}")
-
-    #differents types of Ants
 
     #creatre all collonies
     collonies = {}
     nbrCollonies = 0
     for i in args.AntsTypes :
         nbrCollonies += 1
-        collonies[str(nbrCollonies) + ") " + i] = generateCollonie(typeAntProprety[i], str(nbrCollonies) + ") " + i, int(args.nbrAntsWorkers), int(args.nbrAntsSoldiers), int(args.food))
-
+        collonies[str(nbrCollonies) + ") " + i] = generate_colony(typeAntProprety[i], str(nbrCollonies) + ") " + i, int(args.nbrAntsWorkers), int(args.nbrAntsSoldiers), int(args.food))
+    
+    print(collonies, nbrCollonies)
 
     #begin message
     clear_screen()
