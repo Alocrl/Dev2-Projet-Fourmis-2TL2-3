@@ -11,6 +11,9 @@
         "soldier": {
             "life": 50,
             "damage": 2
+        },
+        "larva": {
+            "life": 15
         }
     },
     "RedAnt": {
@@ -25,6 +28,9 @@
         "soldier": {
             "life": 502,
             "damage": 2
+        },
+        "larva": {
+            "life": 16
         }
     }
 }

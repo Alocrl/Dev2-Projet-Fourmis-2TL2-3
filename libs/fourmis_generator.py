@@ -1,5 +1,6 @@
 from libs.nouriture_generator import generate_food
 
+
 class Ant:
     """Main class for the ants"""
 
@@ -47,6 +48,19 @@ class AntSolder(Ant):
         return f"The solder ant have {self.life} lives left, she can attack with {self.damage} domages per hit."
 
 
+class Larva(Ant):
+    def __init__(self, life, species):
+        super().__init__(life, species)
+        self.state = "egg"
+
+    @property
+    def update_state(self):
+        """define larva state"""
+        if self.life <= 5:
+            self.state = "larva"
+        pass
+
+
 def generate_colony_workers(nbrworkers, life, species, nbr_food_collect_per_day):
     """Generate and return some ant workers"""
     workers = {}
@@ -68,8 +82,15 @@ def generate_colony_soldiers(nbrworkers, life, species, damage):
         soldiers[i] = AntSolder(life, species, damage)
     return soldiers
 
+def generate_colony_larva(nbrLarva, life, species):
+    """generate and return some larva"""
+    larva = {}
+    for i in range(nbrLarva):
+        larva[i] = Larva(life, species)
+    return larva
 
-def generate_colony(type_ant_proprety, species, nbrworkers, nbrsoldiers, nbrfood):
+
+def generate_colony(type_ant_proprety, species, nbrworkers, nbrsoldiers, nbrfood, nbrLarva=0):
     """Generate and return a collonie of ants base on the type of ants"""
 
     workers = generate_colony_workers(nbrworkers, type_ant_proprety["worker"]["life"], species,
@@ -81,5 +102,7 @@ def generate_colony(type_ant_proprety, species, nbrworkers, nbrsoldiers, nbrfood
 
     nourishment = generate_food(nbrfood)
 
-    return {"antProprety": type_ant_proprety, "type": species, "workers": workers, "qween": qween, "soldiers": soldiers,
+    larva = generate_colony_larva(nbrLarva, type_ant_proprety["larva"]["life"], species)
+
+    return {"antProprety": type_ant_proprety, "type": species, "workers": workers, "qween": qween, "soldiers": soldiers, "larva": larva,
             "food": nourishment}
