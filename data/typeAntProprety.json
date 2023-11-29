@@ -1,7 +1,7 @@
 {
     "DarkAnt": {
         "worker": {
-            "life": 10,
+            "life": 45,
             "nbr_food_collect_per_day": 2
         },
         "qween": {
