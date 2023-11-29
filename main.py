@@ -10,19 +10,41 @@ from libs.nouriture_generator import *
 # example of prompt : "python main.py -AW 100 -AS 10 -F 1000 -D 110 -S 0.5  DarkAnt DarkAnt DarkAnt RedAnt"
 
 def clear_screen():
+    """ Clear the command line for wondown, mac and linux
+        It does nont work in the pycharm command line !
+
+    PRE : /
+    POST : /
+    """
     if platform.system() == 'Windows':
         subprocess.run("cls", shell=True)
     else:
         subprocess.run("clear", shell=True)
 
 
-def showState(type, nbrAntsWorkers, nbrAntssoldiers, nbrLarva, nbrFood):
-    """ show the state of the simulation """
-    print(
-        f"{type} : Il reste {nbrAntsWorkers} ouvrières, {nbrAntssoldiers} soldats, {nbrLarva} larva/eggs et {nbrFood} de nouriture ")
+def showState(type: str, nbrAntsWorkers: int, nbrAntssoldiers: int, nbrLarva: int, nbrFood: int):
+    """ Show the state of the simulation for one colony
 
-def launchSimulation(anthill):
-    """ launch the simulation for one day of a collonie"""
+    PRE :   - type (string) : the type of ant and his colony number.
+            - nbrAntsWorkers (int) : the number of workers the colony have
+            - nbrAntssoldiers (int) : the number of soldiers the colony have.
+            - nbrLarva (int) : the number of larva the colony have.
+            -nbrFood (int) : the number of food the colony have.
+    POST : print à string with all the informations in the params of one colony.
+        exemple :
+            - 1) DarkAnt : Il reste 4 ouvrières, 0 soldats, 4 larva/eggs et 33218 de nouriture
+            - 2) RedAnt : Il reste 90 ouvrières, 8 soldats, 7 larva/eggs et 25173 de nouriture
+    """
+    print(f"{type} : Il reste {nbrAntsWorkers} ouvrières, {nbrAntssoldiers} soldats, {nbrLarva} larva/eggs et {nbrFood} de nouriture ")
+
+def launchSimulation(anthill: dict):
+    """ Launch the simulation for one day of a collonie
+
+    PRE :  - anthill (dict) : is a dictionaire with all the information about the colony that will simulate.
+
+    POST : execute all the code to simulate à day, and then  call the "showState" function to show
+            the state of the colony.
+    """
     randomDeathRate = 1 / 0.001
 
     # delete one live to the ant and add a possible random death (workers)
@@ -96,6 +118,8 @@ def launchSimulation(anthill):
 
 
 if __name__ == '__main__':
+    """ Launch the simulation code """
+
     parser = argparse.ArgumentParser()
     parser.add_argument("-AW", "--nbrAntsWorkers", help="set the number of ants at the beggin of the simulation")
     parser.add_argument("-AS", "--nbrAntsSoldiers", help="set the number of ants at the beggin of the simulation")
@@ -105,8 +129,6 @@ if __name__ == '__main__':
     parser.add_argument("AntsTypes", nargs=argparse.REMAINDER,
                         help="Use all additional arguments to create colonies with ants of those type.")
     args = parser.parse_args()
-
-
 
 
     # differents types of Ants
