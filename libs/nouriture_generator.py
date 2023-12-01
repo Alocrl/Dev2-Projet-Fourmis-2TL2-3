@@ -1,6 +1,6 @@
 import random
 import json
-import time
+
 
 #class to create a food
 class Food:
@@ -38,7 +38,7 @@ class Food:
         if not self.all_type_and_life:
             return False
         else:
-            all_key = len(list(self.all_type_and_life.keys()))
+            len(list(self.all_type_and_life.keys()))
             for foodName in list(self.all_type_and_life.keys()) :
                 if self.all_type_and_life[foodName] <= 0 :
                     del self.all_type_and_life[foodName]
