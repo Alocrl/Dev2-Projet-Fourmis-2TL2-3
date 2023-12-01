@@ -1,5 +1,4 @@
 from libs.nouriture_generator import generate_food
-import time
 
 class Ant:
     """Main class for the ants"""
@@ -108,7 +107,9 @@ class Larva(Ant):
         super().__init__(life, species)
         self.state = "egg"
 
-    @property
+
+
+
     def update_state(self):
         """ Define larva state
 
@@ -118,6 +119,9 @@ class Larva(Ant):
         if self.life <= 5:
             self.state = "larva"
         pass
+
+
+
 
     def __str__(self):
         """ stingify the data of the Larva
@@ -160,7 +164,7 @@ def generate_colony_qween(life: int, species: str, nbr_eggs_per_day: int):
     return qween
 
 
-def generate_colony_soldiers(nbrSoldiers: int, life: int, species: str, damage: int):
+def generate_colony_soldiers(nbr_soldiers: int, life: int, species: str, damage: int):
     """ Generate and return some ant soldiers
 
     PRE :   - nbrSoldiers (int) : tells you the number of soldiers object the dict in return need to have.
@@ -172,11 +176,11 @@ def generate_colony_soldiers(nbrSoldiers: int, life: int, species: str, damage: 
             - {0: <libs.fourmis_generator.AntSolder object at 0x02663770>, 1: <libs.fourmis_generator.AntSolder object at 0x02663790>}
     """
     soldiers = {}
-    for i in range(nbrSoldiers):
+    for i in range(nbr_soldiers):
         soldiers[i] = AntSolder(life, species, damage)
     return soldiers
 
-def generate_colony_larva(nbrLarva: int, life: int, species: str):
+def generate_colony_larva(nbr_larva: int, life: int, species: str):
     """ Generate and return some larva
 
     PRE :   - nbrSoldiers (int) : tells you the number of larva object the dict in return need to have.
@@ -187,12 +191,12 @@ def generate_colony_larva(nbrLarva: int, life: int, species: str):
             - {0: <libs.fourmis_generator.Larva object at 0x01F33A90>, 1: <libs.fourmis_generator.Larva object at 0x01F4E1F0>}
     """
     larva = {}
-    for i in range(nbrLarva):
+    for i in range(nbr_larva):
         larva[i] = Larva(life, species)
     return larva
 
 
-def generate_colony(type_ant_proprety: dict, species: str, nbrworkers: int, nbrsoldiers: int, nbrfood: int, nbrLarva: int=0):
+def generate_colony(type_ant_proprety: dict, species: str, nbrworkers: int, nbrsoldiers: int, nbrfood: int, nbr_larva: int=0):
     """ Generate and return a collonie of ants base on the type of ants
 
     PRE :   - type_ant_proprety (dict) : tells you the properties of an ant according to its type.
@@ -220,7 +224,7 @@ def generate_colony(type_ant_proprety: dict, species: str, nbrworkers: int, nbrs
                                         type_ant_proprety["soldier"]["damage"])
     nourishment = generate_food(nbrfood)
 
-    larva = generate_colony_larva(nbrLarva, type_ant_proprety["larva"]["life"], species)
+    larva = generate_colony_larva(nbr_larva, type_ant_proprety["larva"]["life"], species)
 
     return {"antProprety": type_ant_proprety, "type": species, "workers": workers, "qween": qween, "soldiers": soldiers, "larva": larva,
             "food": nourishment}
