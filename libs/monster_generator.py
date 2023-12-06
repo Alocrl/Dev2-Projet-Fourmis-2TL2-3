@@ -1,8 +1,5 @@
 import random
 
-
-
-
 class Monster:
     """Class for Monster
 
