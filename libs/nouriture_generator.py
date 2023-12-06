@@ -84,6 +84,16 @@ class Food:
             all_food += self.all_type_and_life[i] 
         return all_food
     
+    def all_type_food(self):
+        """ Say how many type of food you have.
+
+        PRE : /
+
+        POST : return the number of food types
+        """
+
+        return len(self.all_type_and_life)
+    
     def __str__(self):
         """ Stingify the data of the food class
 

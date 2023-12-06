@@ -23,7 +23,7 @@ def clear_screen():
         subprocess.run("clear", shell=True)
 
 
-def show_state(ant_type: str, nbr_ants_workers: int, nbr_ants_soldiers: int, nbr_larva: int, nbr_food: int):
+def show_state(ant_type: str, nbr_ants_workers: int, nbr_ants_soldiers: int, nbr_larva: int, nbr_food: int, nbr_eat_type: int):
     """ Show the state of the simulation for one colony
 
     PRE :   - ant_type (string) : the type of ant and his colony number.
@@ -36,7 +36,7 @@ def show_state(ant_type: str, nbr_ants_workers: int, nbr_ants_soldiers: int, nbr
             - 1) DarkAnt : Il reste 4 ouvrières, 0 soldats, 4 larva/eggs et 33218 de nouriture
             - 2) RedAnt : Il reste 90 ouvrières, 8 soldats, 7 larva/eggs et 25173 de nouriture
     """
-    print(f"{ant_type} : Il reste {nbr_ants_workers} ouvrières, {nbr_ants_soldiers} soldats, {nbr_larva} larva/eggs et {nbr_food} de nouriture ")
+    print(f"{ant_type} : Il reste {nbr_ants_workers} ouvrières, {nbr_ants_soldiers} soldats, {nbr_larva} larva/eggs et {nbr_food} de nouriture (de {nbr_eat_type} type)")
 
 def launch_simulation(anthill: dict):
     """ Launch the simulation for one day of a collonie
@@ -110,7 +110,7 @@ def launch_simulation(anthill: dict):
 
     # show the state of the porgram
     show_state(anthill["type"], len(anthill["workers"]), len(anthill["soldiers"]), len(anthill["larva"]),
-              anthill["food"].all_storage_food())
+              anthill["food"].all_storage_food(), anthill["food"].all_type_food() )
 
 
 
