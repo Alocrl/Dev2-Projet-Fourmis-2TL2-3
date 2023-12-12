@@ -147,6 +147,9 @@ if __name__ == '__main__':
         nbrCollonies += 1
         collonies[str(nbrCollonies) + ") " + i] = generate_colony(typeAntProprety[i], str(nbrCollonies) + ") " + i, int(args.nbrAntsWorkers), int(args.nbrAntsSoldiers), int(args.food))
 
+    print(collonies)
+
+    time.sleep(100)
     # creatre all monsters
     monsters = []
 

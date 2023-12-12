@@ -32,7 +32,7 @@ class Monster:
             raise ValueError("You cant have a monster with less than 1 life")
         self.life = life
 
-    def every_day_life(self, colony: dict, monsters: list, me_monster:int):
+    def every_day_life(self, colony: dict, monsters: list, me_monster:int, chance_mult = 1):
         """ Do all the actions a monster have to do every day
 
         PRE :   - colony (dict) : a dict with all the colony. The dict can be empty.
@@ -49,15 +49,16 @@ class Monster:
 
         """
         #random rates
-        random_attack_colony = int(1 / 0.1)
-        random_attack_monster = int(1 / 0.01)
-        random_reproduce = int(1 / 0.001)
-        random_change_region = int(1 / 0.0001)
+        random_attack_colony = int(1 / 0.1) * chance_mult
+        random_attack_monster = int(1 / 0.01) * chance_mult
+        random_reproduce = int(1 / 0.001) * chance_mult
+        random_change_region = int(1 / 0.0001) * chance_mult
 
         #one life less for every day
-        self.life += -1
-        if self.life <= 0 :
-            monsters.remove(me_monster)
+        monsters[me_monster].life += -1
+
+        if monsters[me_monster].life <= 0 :
+            monsters.pop(me_monster)
             return colony, monsters
 
         #do the random actions
@@ -91,7 +92,7 @@ class Monster:
             return colony
         attack_colony = random.randrange(nbr_colony)
 
-        #suprimer le nombres de fourmis que faire le monstre de dégats
+        #suprimer le nombres de fourmis que fait le monstre de dégats
         for i in range(len(colony[str(list(colony)[attack_colony])]["workers"])-self.damage, len(colony[str(list(colony)[attack_colony])]["workers"])):
             #check that there are enough ants to kill in relation to the damage, if not, we'll kill the one left.
             if i <= 0 :
@@ -137,7 +138,7 @@ class Monster:
         POST : remove a monster in the simulation for the reason that he change of région in the world.
                 It return the update list of monsters.
         """
-        monsters[me_monster].remove()
+        monsters.pop(me_monster)
         return monsters
 
     @staticmethod
