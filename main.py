@@ -4,7 +4,7 @@ import platform
 import time
 
 from libs.fourmis_generator import *
-from libs.nouriture_generator import *
+from libs.supply_generator import *
 from libs.monster_generator import *
 
 # the program have to be launch from an command prompt
@@ -83,18 +83,18 @@ def launch_simulation(anthill: dict):
 
     # every ant have to eat or die
     for index in anthill["workers"].copy():
-        if anthill["food"].check_class():
+        if anthill["food"].check_supply():
             anthill["food"].del_food()
         else:
             del anthill["workers"][index]
     for index in anthill["soldiers"].copy():
-        if anthill["food"].check_class():
+        if anthill["food"].check_supply():
             anthill["food"].del_food()
         else:
             del anthill["soldiers"][index]
 
     # generate the new eggs/larva from the qween
-    if anthill["food"].all_storage_food() >= 5:
+    if anthill["food"].all_supply() >= 5:
         # make workers in function of nbr of eggs the qween can make
         nbr_larva = len(anthill["larva"])
         new_ant_larva = generate_colony_larva(anthill["antProprety"]["qween"]["nbr_eggs_per_day"],
@@ -110,7 +110,7 @@ def launch_simulation(anthill: dict):
 
     # show the state of the porgram
     show_state(anthill["type"], len(anthill["workers"]), len(anthill["soldiers"]), len(anthill["larva"]),
-              anthill["food"].all_storage_food(), anthill["food"].all_type_food() )
+              anthill["food"].all_supply(), anthill["food"].all_type_in_supply() )
 
 
 
@@ -135,7 +135,7 @@ if __name__ == '__main__':
 
     # differents types of Ants
     try:
-        with open("data/typeAntProprety.json") as file:
+        with open("/Users/maxime/Documents/GitHub/Dev2-Projet-Fourmis-2TL2-3/data/typeAntProprety.json") as file:
             typeAntProprety = json.load(file)
     except IOError as e:
         print(f"IOERROR : {e}")
@@ -147,9 +147,7 @@ if __name__ == '__main__':
         nbrCollonies += 1
         collonies[str(nbrCollonies) + ") " + i] = generate_colony(typeAntProprety[i], str(nbrCollonies) + ") " + i, int(args.nbrAntsWorkers), int(args.nbrAntsSoldiers), int(args.food))
 
-    print(collonies)
-
-    time.sleep(100)
+    time.sleep(1)
     # creatre all monsters
     monsters = []
 

@@ -1,4 +1,4 @@
-from libs.nouriture_generator import generate_food
+from libs.supply_generator import generate_supply
 
 class Ant:
     """Main class for the ants"""
@@ -222,7 +222,7 @@ def generate_colony(type_ant_proprety: dict, species: str, nbrworkers: int, nbrs
                                   type_ant_proprety["qween"]["nbr_eggs_per_day"])
     soldiers = generate_colony_soldiers(nbrsoldiers, type_ant_proprety["soldier"]["life"], species,
                                         type_ant_proprety["soldier"]["damage"])
-    nourishment = generate_food(nbrfood)
+    nourishment = generate_supply(nbrfood)
 
     larva = generate_colony_larva(nbr_larva, type_ant_proprety["larva"]["life"], species)
 

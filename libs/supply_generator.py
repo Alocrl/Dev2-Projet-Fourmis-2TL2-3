@@ -1,9 +1,9 @@
 import random
 import json
 
+#class to create a Supply
+class Supply:
 
-#class to create a food
-class Food:
     def __init__(self,all_type_and_life: dict):
         """ Initialize the Food class
 
@@ -11,9 +11,17 @@ class Food:
 
         POST : initalize the self.all_type_and_life.
         """
-        self.all_type_and_life = all_type_and_life # = quantity d'energie
-    
-    def check_class(self):
+
+        for food_type, properties in all_type_and_life.items():
+            if "nbr_life_eat" in properties:
+                nbr_life_eat = properties["nbr_life_eat"]
+                if not isinstance(nbr_life_eat, int) or isinstance(nbr_life_eat, bool) :
+                    raise ValueError("nbr_life_eat must be an integer.")
+                elif nbr_life_eat < 1:
+                    raise ValueError("nbr_life_eat must be greater than or equal to 1 for all food types.")
+        self.all_type_and_life = all_type_and_life
+
+    def check_supply(self):
         """ Check class
 
         PRE : /
@@ -25,7 +33,7 @@ class Food:
             return False
         else:
             return True
-        
+    
     def del_food(self):
         """ Delete à food
 
@@ -38,16 +46,15 @@ class Food:
         if not self.all_type_and_life:
             return False
         else:
-            len(list(self.all_type_and_life.keys()))
-            for foodName in list(self.all_type_and_life.keys()) :
-                if self.all_type_and_life[foodName] <= 0 :
-                    del self.all_type_and_life[foodName]
+            for food_name in list(self.all_type_and_life.keys()) :
+                if self.all_type_and_life[food_name]["nbr_life_eat"] <= 1 :
+                    del self.all_type_and_life[food_name]
+                    return True
                 else :
-                    self.all_type_and_life[foodName] -= 1
+                    self.all_type_and_life[food_name]["nbr_life_eat"] -= 1
                     return True
             return False
-
-            
+    
     def add_food(self, nbr_collect: int):
         """ Add a certain number of food in the object
 
@@ -56,23 +63,21 @@ class Food:
         POST : return nothing but add food to the object. The amount of food is chose with the param,
                 and the type of food is randomely chosen in the JSON file.
         """
-        if not self.all_type_and_life:
-            return 0
 
         try:
-            with open("data/eat_data.json") as file:
+            with open("/Users/maxime/Documents/GitHub/Dev2-Projet-Fourmis-2TL2-3/data/eat_data.json") as file:
                 all_data_eat = json.load(file)
         except IOError as e:
             print(f"IOERROR : {e}")
 
-        for i in range(nbr_collect) :
+        for _ in range(nbr_collect) :
             type_food = random.choice(list(all_data_eat.keys()))
             if type_food not in self.all_type_and_life.keys():
-                self.all_type_and_life[type_food] = all_data_eat[type_food]["nbr_life_eat"]
+                self.all_type_and_life[type_food] = {"nbr_life_eat":all_data_eat[type_food]["nbr_life_eat"]}
             else:
-                self.all_type_and_life[type_food] += all_data_eat[type_food]["nbr_life_eat"]
-        
-    def all_storage_food(self):
+                self.all_type_and_life[type_food]["nbr_life_eat"] += all_data_eat[type_food]["nbr_life_eat"]
+    
+    def all_supply(self):
         """ Say how many food you have
 
         PRE : /
@@ -81,10 +86,10 @@ class Food:
         """
         all_food = 0
         for i in self.all_type_and_life:
-            all_food += self.all_type_and_life[i] 
+            all_food += self.all_type_and_life[i]["nbr_life_eat"]
         return all_food
     
-    def all_type_food(self):
+    def all_type_in_supply(self):
         """ Say how many type of food you have.
 
         PRE : /
@@ -101,13 +106,10 @@ class Food:
 
         POST : Return the data of the food class in a string.
         """
-        return f"here's the object of the class : {self.all_type_and_life}"
+        return f"here is the object of the class : {self.all_type_and_life}"
 
-
-
-
-#function to generate food
-def generate_food(nbre_nouriture: int):
+#function to generate supply
+def generate_supply(nbre_nouriture: int):
     """ Generate the food
 
     PRE :   - nbre_nouriture (int) : tell you how many food have to be create.
@@ -123,18 +125,18 @@ def generate_food(nbre_nouriture: int):
 
     # add a json file with food types and their values
     try:
-        with open("data/eat_data.json") as file:
+        with open("/Users/maxime/Documents/GitHub/Dev2-Projet-Fourmis-2TL2-3/data/eat_data.json") as file:
             all_data_eat = json.load(file)
     except IOError as e:
         print(f"IOERROR : {e}")
 
     all_type_and_life_object = {}
-    for index in range(nbre_nouriture):  
+    for _ in range(nbre_nouriture):
         type_food = random.choice(list(all_data_eat.keys()))
-        if type_food not in all_type_and_life_object.keys() :
-            all_type_and_life_object[type_food] = all_data_eat[type_food]["nbr_life_eat"]
+        if type_food not in all_type_and_life_object.keys():
+            all_type_and_life_object[type_food] = {"nbr_life_eat":all_data_eat[type_food]["nbr_life_eat"]}
         else :
-            all_type_and_life_object[type_food] += all_data_eat[type_food]["nbr_life_eat"]
-    allfood = Food(all_type_and_life_object)
+            all_type_and_life_object[type_food]["nbr_life_eat"] += all_data_eat[type_food]["nbr_life_eat"]
+    allfood = Supply(all_type_and_life_object)
     return allfood
 
