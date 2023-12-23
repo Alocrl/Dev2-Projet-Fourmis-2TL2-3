@@ -53,7 +53,6 @@ class Supply:
                 else :
                     self.all_type_and_life[food_name]["nbr_life_eat"] -= 1
                     return True
-            return False
     
     def add_food(self, nbr_collect: int):
         """ Add a certain number of food in the object
