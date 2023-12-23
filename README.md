@@ -5,7 +5,7 @@ Vous pouvez y trouver :
 - le fichier de tester contenant la classe Supply [ici](https://github.com/Alocrl/Dev2-Projet-Fourmis-2TL2-3/blob/maxime_test_unitaire_class_Supply/libs/supply_generator.py)
 - le fichier Excel [ici](https://github.com/Alocrl/Dev2-Projet-Fourmis-2TL2-3/blob/maxime_test_unitaire_class_Supply/tests/tableau_test_supply_generator.xlsx)
 
-Concernant les tests effectués, ceux-ci sont réalisés avec unittest et coverage afin d'avoir une mesure de la couverture de code. J'ai obtenu un résultat global de 77%. Étant donné que dans notre projet, nous avions ajouté des fonctions externes à la classe qui ne sont pas testées.
+Concernant les tests effectués, ceux-ci sont réalisés avec unittest et coverage afin d'avoir une mesure de la couverture de code. J'ai obtenu un résultat global de 77%. Étant donné que dans notre projet, le pourcentage peut-être justifié notamment car nous avons ajouté des fonctions externes à la classe qui ne sont pas testées.
 
 Voici une vidéo qui présente ces tests : [ici](https://ephec-my.sharepoint.com/:f:/r/personal/he202259_students_ephec_be/Documents/Test%20Unitaire%20Class%20Supply?csf=1&web=1&e=uD9rcW)
  
