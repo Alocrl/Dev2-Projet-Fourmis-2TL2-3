@@ -36,64 +36,64 @@ class TestSupply(unittest.TestCase):
             Supply({"banane":{"nbr_life_eat":0},"fraise":{"nbr_life_eat":0},"graine": {"nbr_life_eat" :0}})
         self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be greater than or equal to 1 for all food types.')
 
-        #raises valueError : nbr_life_eat = string
-        with self.assertRaises(ValueError) as value_error:
+        #raises TypeError : nbr_life_eat = string
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":"test"}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":2},"fraise":{"nbr_life_eat":"test"},"graine": {"nbr_life_eat" :1}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":2},"fraise":{"nbr_life_eat":14},"graine": {"nbr_life_eat" :""}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":""},"fraise":{"nbr_life_eat":12},"graine": {"nbr_life_eat" :3}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":""},"fraise":{"nbr_life_eat":""},"graine": {"nbr_life_eat" :""}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        #raises valueError : nbr_life_eat = float
-        with self.assertRaises(ValueError) as value_error:
+        #raises TypeError : nbr_life_eat = float
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":2.44}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":1},"fraise":{"nbr_life_eat":12.3433},"graine": {"nbr_life_eat" :1}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":1.111},"fraise":{"nbr_life_eat":12.3433},"graine": {"nbr_life_eat" :932.433}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":0.333},"fraise":{"nbr_life_eat":32},"graine": {"nbr_life_eat" : 2}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        #raises valueError : nbr_life_eat = boolean
-        with self.assertRaises(ValueError) as value_error:
+        #raises TypeError : nbr_life_eat = boolean
+        with self.assertRaises(TypeError) as type_error:
             Supply({"graine":{"nbr_life_eat":True}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":12},"fraise":{"nbr_life_eat":False}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":12},"fraise":{"nbr_life_eat":21},"graine": {"nbr_life_eat" :True}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":True},"fraise":{"nbr_life_eat":True},"graine": {"nbr_life_eat" :True}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
-        with self.assertRaises(ValueError) as value_error:
+        with self.assertRaises(TypeError) as type_error:
             Supply({"banane":{"nbr_life_eat":False},"fraise":{"nbr_life_eat":False},"graine": {"nbr_life_eat" :False}})
-        self.assertEqual(value_error.exception.args[0], 'nbr_life_eat must be an integer.')
+        self.assertEqual(type_error.exception.args[0], 'nbr_life_eat must be an integer.')
 
     def test_check_supply(self):
         """Test if the check_supply method returns the Supply class check"""
@@ -137,6 +137,7 @@ class TestSupply(unittest.TestCase):
     def test_add_food(self):
         """Test if the del_food method actually add food from the Supply class"""
 
+        #NotEqual random testing
         test1 = Supply({"banane":{"nbr_life_eat":3}})
         self.assertEqual(test1.all_type_and_life, {"banane":{"nbr_life_eat":3}})
         test1.add_food(1)
@@ -151,6 +152,50 @@ class TestSupply(unittest.TestCase):
         self.assertEqual(test3.all_type_and_life, {"banane":{"nbr_life_eat":2},"fraise":{"nbr_life_eat":4},"graine": {"nbr_life_eat" :1}})
         test3.add_food(3)
         self.assertNotEqual(test2.all_type_and_life, {"banane":{"nbr_life_eat":2},"fraise":{"nbr_life_eat":4},"graine": {"nbr_life_eat" :1}})
+
+        #raises TypeError : nbr_collect = string
+        with self.assertRaises(TypeError) as type_error:
+            test4 = Supply({"fraise":{"nbr_life_eat":12}})
+            test4.add_food("test")
+        self.assertEqual(type_error.exception.args[0], 'nbr_collect must be an integer.')
+
+        with self.assertRaises(TypeError) as type_error:
+            test5 = Supply({"banane":{"nbr_life_eat":2},"fraise":{"nbr_life_eat":244},"graine": {"nbr_life_eat" :1}})
+            test5.add_food("12")
+        self.assertEqual(type_error.exception.args[0], 'nbr_collect must be an integer.')
+
+        #raises TypeError : nbr_collect = bool
+        with self.assertRaises(TypeError) as type_error:
+            test6 = Supply({"fraise":{"nbr_life_eat":24}})
+            test6.add_food(True)
+        self.assertEqual(type_error.exception.args[0], 'nbr_collect must be an integer.')
+
+        with self.assertRaises(TypeError) as type_error:
+            test7 = Supply({"banane":{"nbr_life_eat":12},"fraise":{"nbr_life_eat":32},"graine": {"nbr_life_eat" :43}})
+            test7.add_food(False)
+        self.assertEqual(type_error.exception.args[0], 'nbr_collect must be an integer.')
+
+        #raises TypeError : nbr_collect = float
+        with self.assertRaises(TypeError) as type_error:
+            test8 = Supply({"fraise":{"nbr_life_eat":24}})
+            test8.add_food(2.444)
+        self.assertEqual(type_error.exception.args[0], 'nbr_collect must be an integer.')
+
+        with self.assertRaises(TypeError) as type_error:
+            test9 = Supply({"banane":{"nbr_life_eat":12},"fraise":{"nbr_life_eat":32},"graine": {"nbr_life_eat" :43}})
+            test9.add_food(32.122)
+        self.assertEqual(type_error.exception.args[0], 'nbr_collect must be an integer.')
+
+        #raises ValueError : nbr_collect < 1
+        with self.assertRaises(ValueError) as value_error:
+            test10 = Supply({"fraise":{"nbr_life_eat":124}})
+            test10.add_food(0)
+        self.assertEqual(value_error.exception.args[0], 'nbr_collect must be greater than or equal to 1 for all food types.')
+
+        with self.assertRaises(ValueError) as value_error:
+            test11 = Supply({"fraise":{"nbr_life_eat":64}})
+            test11.add_food(-12)
+        self.assertEqual(value_error.exception.args[0], 'nbr_collect must be greater than or equal to 1 for all food types.')
 
     def test_all_supply(self):
         """Test if the all_supply method returns the total number of food items available in the supply"""
@@ -196,7 +241,6 @@ class TestSupply(unittest.TestCase):
 
         test4 = Supply({"banane":{"nbr_life_eat":2}})
         self.assertEqual(str(test4), f'here is the object of the class : {test4.all_type_and_life}')
-
 
 if __name__ == '__main__':
     cov = coverage.Coverage()

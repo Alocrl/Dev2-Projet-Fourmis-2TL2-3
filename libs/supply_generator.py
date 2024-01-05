@@ -10,14 +10,16 @@ class Supply:
         PRE :   - all_type_and_life (dict) : is a dict with all the type of food and her quantity.
 
         POST : initalize the self.all_type_and_life.
+        RAISES : - if nbr_life_eat not an integer raise TypeError.
+                 - if nbr_life_eat > 1 raise ValueError.
         """
 
         for food_type, properties in all_type_and_life.items():
             if "nbr_life_eat" in properties:
                 nbr_life_eat = properties["nbr_life_eat"]
                 if not isinstance(nbr_life_eat, int) or isinstance(nbr_life_eat, bool) :
-                    raise ValueError("nbr_life_eat must be an integer.")
-                elif nbr_life_eat < 1:
+                    raise TypeError("nbr_life_eat must be an integer.")
+                if nbr_life_eat < 1:
                     raise ValueError("nbr_life_eat must be greater than or equal to 1 for all food types.")
         self.all_type_and_life = all_type_and_life
 
@@ -61,7 +63,15 @@ class Supply:
 
         POST : return nothing but add food to the object. The amount of food is chose with the param,
                 and the type of food is randomely chosen in the JSON file.
+
+        RAISES : - if nbr_collect not an integer raise TypeError.
+                 - if nbr_collect > 1 raise ValueError.
         """
+
+        if not isinstance(nbr_collect, int) or isinstance(nbr_collect, bool) :
+            raise TypeError("nbr_collect must be an integer.")
+        if nbr_collect < 1:
+            raise ValueError("nbr_collect must be greater than or equal to 1 for all food types.")
 
         for _ in range(nbr_collect) :
             type_food = random.choice(list(all_data_eat.keys()))
