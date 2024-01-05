@@ -63,12 +63,6 @@ class Supply:
                 and the type of food is randomely chosen in the JSON file.
         """
 
-        try:
-            with open("/Users/maxime/Documents/GitHub/Dev2-Projet-Fourmis-2TL2-3/data/eat_data.json") as file:
-                all_data_eat = json.load(file)
-        except IOError as e:
-            print(f"IOERROR : {e}")
-
         for _ in range(nbr_collect) :
             type_food = random.choice(list(all_data_eat.keys()))
             if type_food not in self.all_type_and_life.keys():
@@ -107,6 +101,13 @@ class Supply:
         """
         return f"here is the object of the class : {self.all_type_and_life}"
 
+#import json file with the necessary data for various foods
+try:
+    with open("/Users/maxime/Documents/GitHub/Dev2-Projet-Fourmis-2TL2-3/data/eat_data.json") as file:
+        all_data_eat = json.load(file)
+except IOError as e:
+    print(f"IOERROR : {e}")
+
 #function to generate supply
 def generate_supply(nbre_nouriture: int):
     """ Generate the food
@@ -118,16 +119,9 @@ def generate_supply(nbre_nouriture: int):
             Each food that is created equals a quantity of food that is different of each other (carrotes=2, bannane=5),
             that is why the "nbre_nouriture" and the sum of all the nurriture in the object is not equal.
         exmeple :
-            - {'carotte': 774, 'banane': 266, 'fraise': 452, 'feuille': 118, 'citrouille': 1400,
-                'graine': 131, 'tomate': 476, 'salade': 117}
+            - {'carotte': {'nbr_life_eat' : 2}, 'banane': {'nbr_life_eat' : 12}, 'fraise': {'nbr_life_eat' : 2}, 'feuille': {'nbr_life_eat' : 188},
+                'graine': {'nbr_life_eat' : 132}, 'tomate': {'nbr_life_eat' : 2}, 'salade': {'nbr_life_eat' : 43}}
     """
-
-    # add a json file with food types and their values
-    try:
-        with open("/Users/maxime/Documents/GitHub/Dev2-Projet-Fourmis-2TL2-3/data/eat_data.json") as file:
-            all_data_eat = json.load(file)
-    except IOError as e:
-        print(f"IOERROR : {e}")
 
     all_type_and_life_object = {}
     for _ in range(nbre_nouriture):
